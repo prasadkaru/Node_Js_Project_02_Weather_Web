@@ -4,9 +4,15 @@ const weather = require('../utils/weather')
 const geo = require('../utils/geo')
 const express  = require('express');
 const path = require('path');
+const hbs = require('hbs');
 const app = express();
 
-app.set('view engine','hbs')
+const templatePath =path.join(__dirname,"../templates");
+const partialsPath = path.join(__dirname,"../templates/partials")
+
+app.set('view engine','hbs');
+app.set('views',templatePath);
+hbs.registerPartials(partialsPath);
 
 const publicDirpath = path.join(__dirname,'../public')
 //console.log(publicDirpath);
@@ -24,11 +30,11 @@ app.get('/',(req, res)=>{
 // });
 
 app.get('/about',(req, res)=>{
-    res.send('about')
+    res.render('about')
 });
 
 app.get('/help',(req, res)=>{
-    res.send("from help app.cjs")
+    res.render("help")
 })
 
 app.get('/weather',(req, res)=>{
@@ -49,7 +55,7 @@ app.get('/weather',(req, res)=>{
 })
 
 app.get('*',(req, res)=>{
-    res.send("page not found")
+    res.render("404")
 })
 // weather(13,-94)
 //     .then((data)=>{
