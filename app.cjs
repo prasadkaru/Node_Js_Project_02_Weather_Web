@@ -6,7 +6,7 @@ const express  = require('express');
 const app = express();
 
 app.get("/",(req, res)=>{
-    res.send('hello from express app.cjs');
+    res.send(`<h1>WelCome</h1>`);
 });
 
 app.get('/about',(req, res)=>{
@@ -18,7 +18,20 @@ app.get('/help',(req, res)=>{
 })
 
 app.get('/weather',(req, res)=>{
-    res.send("weather")
+    if(!req.query.address){
+        res.send({error:'page not found'})
+    }
+    geo(req.query.address)
+    .then((data)=>{
+        return weather(data.lat,data.lon)
+    })
+    .then((data)=>{
+        res.send(data);
+    })
+    .catch((error)=>{
+        res.send(error)
+    })
+
 })
 
 app.get('*',(req, res)=>{
