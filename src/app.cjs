@@ -1,13 +1,27 @@
 
 
-const weather = require('./utils/weather')
-const geo = require('./utils/geo')
+const weather = require('../utils/weather')
+const geo = require('../utils/geo')
 const express  = require('express');
+const path = require('path');
 const app = express();
 
-app.get("/",(req, res)=>{
-    res.send(`<h1>WelCome</h1>`);
-});
+app.set('view engine','hbs')
+
+const publicDirpath = path.join(__dirname,'../public')
+//console.log(publicDirpath);
+app.use(express.static(publicDirpath));
+app.get('/',(req, res)=>{
+    res.render('index',{
+        name:'sunil',
+        age:10
+    })
+})
+
+
+// app.get("/",(req, res)=>{
+//     res.send(`<h1>WelCome</h1>`);
+// });
 
 app.get('/about',(req, res)=>{
     res.send('about')
