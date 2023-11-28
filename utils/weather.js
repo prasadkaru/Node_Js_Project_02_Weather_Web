@@ -17,7 +17,7 @@ const getWeather = (lat,lon)=>{
                 // /console.log(response.data.location.country+" city : "+response.data.location.name)
                 // console.log(response.data.current.temp_c);
                 // console.log(response.data.current.condition.text);
-                resolve({weather:response.data.location.country +' Currently '+response.data.current.condition.text+' and temparature is '+response.data.current.temp_c+' C'})
+                resolve({weather:' This city in '+response.data.location.country+', Currently '+'"'+response.data.current.condition.text+'" and temparature is '+response.data.current.temp_c+' C'})
                 //console.log("Currently "+response.data.current.condition.text+" and temparature is "+response.data.current.temp_c)
             })
             .catch(function (error) {
